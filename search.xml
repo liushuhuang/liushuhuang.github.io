@@ -12,6 +12,12 @@
       
       
       
+        <tags>
+            
+            <tag> MySQL </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -25,6 +31,12 @@
       
       
       
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -37,6 +49,12 @@
         <content type="html"><![CDATA[<h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><h2 id="1-反射有什么用"><a href="#1-反射有什么用" class="headerlink" title="1.反射有什么用"></a>1.反射有什么用</h2><p>通过反射可以操作字节码</p><h2 id="2-反射相关的类"><a href="#2-反射相关的类" class="headerlink" title="2.反射相关的类"></a>2.反射相关的类</h2><blockquote><p>Java.lang.Class 代表字节码文件</p><p>java.lang.reflect. Field代表字节码中的属性字节码</p><p>java.lang.reflect. Method 代表字节码中的方法字节码</p><p>java.lang.reflect. Constructor<T> 代表字节码中的构造方法字节码</p><p>java.lang.reflect. Proxy  动态代理使用</p></blockquote><h2 id="3-获取字节码（获取Class类）"><a href="#3-获取字节码（获取Class类）" class="headerlink" title="3.获取字节码（获取Class类）"></a>3.获取字节码（获取Class类）</h2><blockquote><p>1.Class.forname(完整类名（带包名）)  将class文件加载到方法区</p><p>2.对象的getClass方法</p><p>3.java中任何一种类型，包括基本数据类型，都有一个class属性</p><p><img src="https://cdn.jsdelivr.net/gh/liushuhuang/PicGo@main/img/202209171038056.png" alt="image-20220511125717461"></p></blockquote><p>通过不同方式获得的class对象是同一个</p><p>字节码文件装载到jvm，只要有一份</p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
       
     </entry>
     
