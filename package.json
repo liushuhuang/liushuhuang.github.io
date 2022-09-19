@@ -35,7 +35,8 @@
     "hexo-wordcount": "^6.0.1",
     "htmlmin": "^0.0.7",
     "live2d-widget-model-chitose": "^1.0.5",
-    "live2d-widget-model-tororo": "^1.0.5"
+    "live2d-widget-model-tororo": "^1.0.5",
+    "save-dev": "^0.0.1-security"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
