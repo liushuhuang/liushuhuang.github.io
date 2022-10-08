@@ -1,3 +1,12 @@
+---
+title: 狂神说redis笔记
+date:
+description: 狂神说redis笔记
+tags: redis nosql
+top_img: transparent
+cover: 
+---
+
 ## 一、Nosql概述
 
 ### 为什么使用Nosql
