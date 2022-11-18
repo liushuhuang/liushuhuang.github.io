@@ -11,17 +11,15 @@ cover:
 
 ## JVM基础知识
 
-![image-20221117140410429](https://cdn.jsdelivr.net/gh/liushuhuang/PicGo@main/img/image-20221117140410429.png)
+![image-20221117140556010](https://cdn.staticaly.com/gh/liushuhuang/PicGo@main/img/image-20221117140556010.png)
 
-![image-20221117140556010](D:\blog\liushuhuang.github.io\source\_posts\image-20221117140556010.png)
-
-![image-20221117140633662](https://cdn.jsdelivr.net/gh/liushuhuang/PicGo@main/img/image-20221117140633662.png)
+![image-20221117140633662](D:\blog\liushuhuang.github.io\source\_posts\image-20221117140633662.png)
 
 ## GC
 
 ![image-20221117140902775](https://cdn.jsdelivr.net/gh/liushuhuang/PicGo@main/img/image-20221117140902775.png)
 
-![image-20221117141604984](D:\blog\liushuhuang.github.io\source\_posts\image-20221117141604984.png)
+![image-20221117141604984](https://cdn.staticaly.com/gh/liushuhuang/PicGo/img/image-20221117141604984.png)
 
 避免full GC
 
@@ -39,11 +37,11 @@ cover:
 
 
 
-![image-20221117142129987](D:\blog\liushuhuang.github.io\source\_posts\image-20221117142129987.png)
+![image-20221117142129987](https://cdn.staticaly.com/gh/liushuhuang/PicGo/img/image-20221117142129987.png)
 
 
 
-![image-20221117142824087](D:\blog\liushuhuang.github.io\source\_posts\image-20221117142824087.png)
+![image-20221117142824087](https://cdn.staticaly.com/gh/liushuhuang/PicGo/img/image-20221117142824087.png)
 
 
 
