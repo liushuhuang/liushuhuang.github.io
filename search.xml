@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>JVM学习</title>
+      <link href="/2022/11/17/JVM%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2022/11/17/JVM%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="JVM基础知识"><a href="#JVM基础知识" class="headerlink" title="JVM基础知识"></a>JVM基础知识</h2><p><img src="https://cdn.jsdelivr.net/gh/liushuhuang/PicGo@main/img/image-20221117140410429.png" alt="image-20221117140410429"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117140556010.png" alt="image-20221117140556010"></p><p><img src="https://cdn.jsdelivr.net/gh/liushuhuang/PicGo@main/img/image-20221117140633662.png" alt="image-20221117140633662"></p><h2 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h2><p><img src="https://cdn.jsdelivr.net/gh/liushuhuang/PicGo@main/img/image-20221117140902775.png" alt="image-20221117140902775"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117141604984.png" alt="image-20221117141604984"></p><p>避免full GC</p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117141643124.png" alt="image-20221117141643124"></p><p>为什么要有个S区？</p><p>加入年轻的只有一个区域，可回收的空间回收之后变成了碎片  内存利用率低  </p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117142129987.png" alt="image-20221117142129987"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117142824087.png" alt="image-20221117142824087"></p><p>jps命令查看java进程</p><p>jstat -gcutil   进程Id  GC信息显示时间间隔   查看进程GC信息</p><p>例：jstat -gcutil  1111  1000  每隔一秒显示一次GC信息</p><p>GC信息各字段解释：</p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117144550372.png" alt="image-20221117144550372"></p><p>YGC：youngGC的次数</p><p>YGCT：youngGC占用时间</p><p>FGC：FullGC的次数</p><p>FGCT：FullGC占用时间</p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117144026347.png" alt="image-20221117144026347"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117144318498.png" alt="image-20221117144318498"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117144800517.png" alt="image-20221117144800517"></p><p>收集器也是面向”代”的</p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117145107289.png" alt="image-20221117145107289"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117145407696.png" alt="image-20221117145407696"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117145650974.png" alt="image-20221117145650974"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117150932698.png" alt="image-20221117150932698"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117151232037.png" alt="image-20221117151232037"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117151937066.png" alt="image-20221117151937066"></p><p>年轻代显示总共只有9M，是因为有1M的S区是不会使用的</p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117154425746.png" alt="image-20221117154425746"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117154452616.png" alt="image-20221117154452616"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117154637094.png" alt="image-20221117154637094"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117154744143.png" alt="image-20221117154744143"></p><p><img src="D:\blog\liushuhuang.github.io\source_posts\image-20221117155319163.png" alt="image-20221117155319163"></p><p>ThreadLocal的内存泄露</p><p>ThreadLocal是key value的形式存储值的，但是key是弱引用，在GC的时候会被回收，但是value是强引用，无法在GC的时候进行回收，而一旦key被回收了，对应的value就用韵存在那里了，就产生了内存泄漏</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> JVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker</title>
+      <link href="/2022/11/17/docker/"/>
+      <url>/2022/11/17/docker/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Docker概述"><a href="#Docker概述" class="headerlink" title="Docker概述"></a>Docker概述</h2><h3 id="1-基本介绍"><a href="#1-基本介绍" class="headerlink" title="(1) 基本介绍"></a>(1) 基本介绍</h3><p>​Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。</p><p>​Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。</p><p>​容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。</p><p>​Docker 从 17.03 版本之后分为 CE（Community Edition: 社区版） 和 EE（Enterprise Edition: 企业版），我们用社区版就可以了。官网：<a href="https://docs.docker.com/">https://docs.docker.com/</a></p><h3 id="2-应用场景"><a href="#2-应用场景" class="headerlink" title="(2) 应用场景"></a>(2) 应用场景</h3><ul><li>Web 应用的自动化打包和发布。</li><li>自动化测试和持续集成、发布。</li><li>在服务型环境中部署和调整数据库或其他的后台应用。</li><li>从头编译或者扩展现有的 OpenShift 或 Cloud Foundry 平台来搭建自己的 PaaS 环境。</li></ul><h3 id="3-Docker-的优势"><a href="#3-Docker-的优势" class="headerlink" title="(3) Docker 的优势"></a>(3) Docker 的优势</h3><p>​Docker 是一个用于开发，交付和运行应用程序的开放平台。Docker 使您能够将应用程序与基础架构分开，从而可以快速交付软件。借助 Docker，您可以与管理应用程序相同的方式来管理基础架构。通过利用 Docker 的方法来快速交付，测试和部署代码，您可以大大减少编写代码和在生产环境中运行代码之间的延迟。</p><p>1、快速，一致地交付您的应用程序。Docker 允许开发人员使用您提供的应用程序或服务的本地容器在标准化环境中工作，从而简化了开发的生命周期。</p><p>​容器非常适合<code>持续集成和持续交付（CI / CD）</code>工作流程，请考虑以下示例方案：</p><p>​您的开发人员在本地编写代码，并使用 Docker 容器与同事共享他们的工作。<br>​他们使用 Docker 将其应用程序推送到测试环境中，并执行自动或手动测试。<br>​当开发人员发现错误时，他们可以在开发环境中对其进行修复，然后将其重新部署到测试环境中，以进行测试和验证。<br>​测试完成后，将修补程序推送给生产环境，就像将更新的镜像推送到生产环境一样简单。</p><p>2、响应式部署和扩展</p><p>​Docker 是基于容器的平台，允许高度可移植的工作负载。Docker 容器可以在开发人员的本机上，数据中心的物理或虚拟机上，云服务上或混合环境中运行。</p><p>​Docker 的可移植性和轻量级的特性，还可以使您轻松地完成动态管理的工作负担，并根据业务需求指示，实时扩展或拆除应用程序和服务。</p><p>3、在同一硬件上运行更多工作负载</p><p>​Docker 轻巧快速。它为基于虚拟机管理程序的虚拟机提供了可行、经济、高效的替代方案，因此您可以利用更多的计算能力来实现业务目标。Docker 非常适合于高密度环境以及中小型部署，而您可以用更少的资源做更多的事情。</p><h3 id="4-虚拟化技术和容器化技术"><a href="#4-虚拟化技术和容器化技术" class="headerlink" title="(4) 虚拟化技术和容器化技术"></a>(4) 虚拟化技术和容器化技术</h3><p>虚拟化技术特点：1.资源占用多 2.冗余步骤多 3.启动很慢</p><p>容器化技术：容器化技术不是模拟的一个完整的操作系统</p><p>比较Docker和虚拟机的不同：</p><ol><li>传统虚拟机，虚拟出硬件，运行一个完整的操作系统，然后在这个系统上安装和运行软件。</li><li>Docker容器内的应用直接运行在宿主机的内核，容器是没有自己的内核的，也没有虚拟硬件。</li><li>每个容器都是相互隔离的，每个容器都有属于自己的文件系统，互不影响。</li></ol><p>容器化带来的好处：</p><ol><li><p>应用更快速的交付和部署</p><p>传统：一堆帮助文档，安装程序</p><p>Docker：打包镜像发布测试，一键运行</p></li><li><p>更便捷的扩缩容</p><p>使用了Docker之后，我们部署应用就跟搭积木一样</p><p>项目打包成一个镜像，扩展 服务器A  服务器B ……</p></li><li><p>更简单的系统运维</p><p>容器化之后，我们的开发和测试环境都是高度一致的</p></li><li><p>更高效的资源利用</p><p>Docker是内核级别的虚拟化，可以在一个物理机上运行很多的容器实例</p></li></ol><p>服务器的性能可以被压缩到极致</p><h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><h3 id="Docker的基本组成"><a href="#Docker的基本组成" class="headerlink" title="Docker的基本组成"></a>Docker的基本组成</h3><p>Docker架构图：</p><p><img src="https://pic.lixl.cn/2020/image-20200325194141346.png"></p><p><strong>镜像(Images)：</strong></p><p>docker镜像就好比是一个模板，可以通过这个模板来创建容器服务。</p><p>tomcat镜像&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt;run&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt;tomcat 01 容器（提供服务）</p><p>通过一个镜像可以创建多个容器（最终服务运行或者项目与项目运行就是在容器中的）。</p><p><strong>容器(Containers)：</strong></p><p>Docker利用容器技术，独立运行一个或者一组应用，通过镜像来创建的。</p><p>容器基本操作：启动，停止，删除。</p><p>目前就可以把容器理解为一个简易的linux系统</p><p><strong>仓库(repository)：</strong></p><p>仓库就是存放镜像的地方！</p><p>仓库分为私有和公共</p><p>Docker Hub（默认是国外的）</p><p>阿里云…都有容器服务器（配置镜像加速）</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>狂神说redis笔记</title>
       <link href="/2022/10/17/%E7%8B%82%E7%A5%9E%E8%AF%B4redis/"/>
       <url>/2022/10/17/%E7%8B%82%E7%A5%9E%E8%AF%B4redis/</url>
