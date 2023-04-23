@@ -200,6 +200,8 @@ CMD /bin/bash
 
 ![](https://img2020.cnblogs.com/blog/1732557/202006/1732557-20200614161330804-1081112351.png)
 
+
+
 ![](https://img2020.cnblogs.com/blog/1732557/202006/1732557-20200614161404163-1160056786.png)
 
 ![](https://img2020.cnblogs.com/blog/1732557/202006/1732557-20200614161422662-1027430424.png)
@@ -246,7 +248,7 @@ CMD /bin/bash
 
 1、 编写一个dockerfile文件
 
-2、 docker build 构建称为一个镜像
+2、 docker build 构建成为一个镜像
 
 3、 docker run运行镜像
 
@@ -1106,3 +1108,6 @@ docker搭建redis集群完成！
 ![](https://img2020.cnblogs.com/blog/1732557/202006/1732557-20200614163626833-1307348859.png)
 
 以后我们使用了Docker之后，给别人交付就是一个镜像即可！
+
+
+
