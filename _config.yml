@@ -107,25 +107,6 @@ deploy:
   repo: git@github.com:liushuhuang/liushuhuang.github.io.git
   branch: main
 
-live2d:
-  enable: true
-  scriptFrom: local
-  pluginRootPath: live2dw/
-  pluginJsPath: lib/
-  pluginModelPath: assets/
-  model:
-    # 这是宠物模型 对应命令
-    use: live2d-widget-model-chitose
-  display:
-    # 设置模型的位置
-    position: left   # left  左边    right  右边  
-    width: 150    # 模型大小  宽度
-    height: 500      # 模型大小  高度
-  mobile:
-    show: true   # 手机显示开关，建议关闭
-  react:
-    opacityDefault: 1
-    opacityOnHover: 1
 
 aplayer:
   meting: true
