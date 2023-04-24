@@ -35,33 +35,33 @@ cover:
 
 - 引入 Spring Security 模块
 
-  - ```xml
-    <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
-    ```
+  ```xml
+  <dependency>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-security</artifactId>
+  </dependency>
+  ```
 
 - config
 
   - 授权
 
-    - ```java
-      @Override
-      protected void configure(HttpSecurity http) throws Exception {
-          // 定制请求的授权规则
-          // 首页所有人可以访问
-          http.authorizeRequests().antMatchers("/").permitAll()
-                  .antMatchers("/level1/**").hasRole("vip2")
-                  .antMatchers("/level2/**").hasRole("vip2")
-                  .antMatchers("/level3/**").hasRole("vip3");
-      
-          // 开启自动配置的登录功能
-          // /login 请求来到登录页
-          // /login?error 重定向到这里表示登录失败
-          http.formLogin();
-      }
-      ```
+    ```java
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // 定制请求的授权规则
+        // 首页所有人可以访问
+        http.authorizeRequests().antMatchers("/").permitAll()
+                .antMatchers("/level1/**").hasRole("vip2")
+                .antMatchers("/level2/**").hasRole("vip2")
+                .antMatchers("/level3/**").hasRole("vip3");
+    
+        // 开启自动配置的登录功能
+        // /login 请求来到登录页
+        // /login?error 重定向到这里表示登录失败
+        http.formLogin();
+    }
+    ```
 
     - antMatchers
 
@@ -74,24 +74,24 @@ cover:
 
   - 认证
 
-    - ```java
-      //定义认证规则
-      @Override
-      protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-          //在内存中定义，也可以在jdbc中去拿....
-          auth.inMemoryAuthentication()
-          		.withUser("zhou").password("123456").roles("vip2","vip3")
-                  .and()
-                  .withUser("root").password("123456").roles("vip1","vip2","vip3")
-                  .and()
-                  .withUser("guest").password("123456").roles("vip1","vip2");
-      }
-      ```
+    ```java
+    //定义认证规则
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //在内存中定义，也可以在jdbc中去拿....
+        auth.inMemoryAuthentication()
+        		.withUser("zhou").password("123456").roles("vip2","vip3")
+                .and()
+                .withUser("root").password("123456").roles("vip1","vip2","vip3")
+                .and()
+                .withUser("guest").password("123456").roles("vip1","vip2");
+    }
+    ```
 
     - 但是会报错，由于使用的密码，没有加密，框架认为不安全，因此需要加密
 
-    - ```java
-          //定义认证规则
+      ```java
+       //定义认证规则
           @Override
           protected void configure(AuthenticationManagerBuilder auth) throws Exception {
               //在内存中定义，也可以在jdbc中去拿....
@@ -112,22 +112,22 @@ cover:
 
 - 注销
 
-  - ```java
-    //定制请求的授权规则
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-       //....
-       //开启自动配置的注销的功能
-          // /logout 注销请求
-       http.logout();
-    }
-    ```
+  ```java
+  //定制请求的授权规则
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+     //....
+     //开启自动配置的注销的功能
+        // /logout 注销请求
+     http.logout();
+  }
+  ```
 
   - 如果希望注销跳到首页
 
-    - ```scss
-      http.logout().logoutSuccessUrl("/");
-      ```
+    ```java
+    http.logout().logoutSuccessUrl("/");
+    ```
 
     - 后面跟的是URL路径
 
@@ -140,8 +140,6 @@ cover:
 
 # Remember me
 
-- 
-
 ```scss
 http.rememberMe();
 ```
@@ -150,24 +148,26 @@ http.rememberMe();
 
 # 定制登录页
 
-- ```scss
-  http.formLogin().loginPage("/toLogin");
-  ```
+```java
+http.formLogin().loginPage("/toLogin");
+```
 
 - 在loginPage里面写登录的URL路径
 
 - 接受登录的用户名和密码
 
-  - ```x86asm
-    http.formLogin()
-      .usernameParameter("username")
-      .passwordParameter("password")
-      .loginPage("/toLogin")
-      .loginProcessingUrl("/login"); // 登陆表单提交请求
-    ```
+  ```java
+  http.formLogin()
+    .usernameParameter("username")
+    .passwordParameter("password")
+    .loginPage("/toLogin")
+    .loginProcessingUrl("/login"); // 登陆表单提交请求
+  ```
 
 - 接受rembermer参数
 
-  - ```scss
-    http.rememberMe().rememberMeParameter("remember");
-    ```
+  ```java
+  http.rememberMe().rememberMeParameter("remember");
+  ```
+
+  
