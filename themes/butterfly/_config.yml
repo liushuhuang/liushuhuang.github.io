@@ -857,6 +857,7 @@ css_prefix: true
 inject:
   head:
     # - <link rel="stylesheet" href="/xxx.css">
+    #防止图片因为防盗链而打不开
     - <meta name="referrer" content="no-referrer" />
 
   bottom:
