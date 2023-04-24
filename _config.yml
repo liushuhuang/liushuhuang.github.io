@@ -42,9 +42,6 @@ external_link:
 filename_case: 0
 render_drafts: false
 post_asset_folder: true
-  asset_image:
-  domains_white:
-    - img-blog.csdnimg.cn
 relative_link: false
 future: true
 highlight:
