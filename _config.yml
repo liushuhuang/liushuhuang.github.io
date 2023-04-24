@@ -44,7 +44,7 @@ render_drafts: false
 post_asset_folder: true
   asset_image:
   domains_white:
-    - blog.csdn.net
+    - img-blog.csdnimg.cn
 relative_link: false
 future: true
 highlight:
