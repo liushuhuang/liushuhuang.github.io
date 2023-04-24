@@ -121,6 +121,6 @@ search:
   format: html
   limit: 10000
   
-  head:
+head:
   - name: referrer
     content: no-referrer
