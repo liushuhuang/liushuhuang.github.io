@@ -98,7 +98,7 @@ cover:
 
 
 
-而最终更新使用的是BatchExcutor进行批量执行的。
+而最终更新使用的是`BatchExcutor`进行批量执行的。
 
 ### 4.BatchExcutor
 
@@ -117,30 +117,32 @@ cover:
 
 一个 `Statement`可以执行多个sql（前提是sql相同和占位符）
 以下是使用`Statement`对象的批处理的典型步骤序列
-使用`createStatement()`方法创建`Statement`对象。
-使用`setAutoCommit()`将自动提交设置为`false`。
-使用`addBatch()`方法在创建的`Statement`对象上添加SQL语句到批处理中。
-在创建的`Statement`对象上使用`executeBatch()`方法执行所有SQL语句。
-最后，使用`commit()`方法提交所有更改。
+
+1.  使用`createStatement()`方法创建`Statement`对象。
+2. 使用`setAutoCommit()`将自动提交设置为`false`。
+3. 使用`addBatch()`方法在创建的`Statement`对象上添加SQL语句到批处理中。
+4. 在创建的`Statement`对象上使用`executeBatch()`方法执行所有SQL语句。
+5. 最后，使用`commit()`方法提交所有更改。
 
 ### 使用PrepareStatement对象进行批处理
 
 一个 Statement可以执行多个sql（前提是sql相同和占位符）
 以下是使用PrepareStatement对象进行批处理的典型步骤顺序 -
-使用占位符创建SQL语句。
-使用prepareStatement()方法创建PrepareStatement对象。
-使用setAutoCommit()将自动提交设置为false。
-使用addBatch()方法在创建的Statement对象上添加SQL语句到批处理中。
-在创建的Statement对象上使用executeBatch()方法执行所有SQL语句。
-最后，使用commit()方法提交所有更改。
+
+1. 使用占位符创建SQL语句。
+2. 使用`prepareStatement()`方法创建`PrepareStatement`对象。
+3. 使用`setAutoCommit()`将自动提交设置为`false`。
+4. 使用`addBatch()`方法在创建的`Statement`对象上添加SQL语句到批处理中。
+5. 在创建的`Statement`对象上使用`executeBatch()`方法执行所有SQL语句。
+6. 最后，使用`commit()`方法提交所有更改。
 
 ### BatchExecutor类
 
-BatchExecutor同样继承了BaseExecutor抽象类，实现了批处理多条 SQL 语句的功能。因为JDBC不支持select类型的SQL语句，只支持insert、update、delete类型的SQL语句，所以在BatchExecutor类中，批处理主要针对的是update()方法。BatchExecutor类实现的整体逻辑：其中的doUpdate()方法，主要是把需要批处理的SQL语句通过 statement.addBatch()方法添加到批处理的Statement或PrepareStatement对象中，然后通过doFlushStatements()方法执行Statement的executeBatch()方法执行批处理，在doQueryCursor()方法和doQuery()方法中，首先会执行flushStatements()方法，flushStatements()方法底层其实就是doFlushStatements()方法，所以相当于先把已经添加到Statement或PrepareStatement对象中的批处理语句执行，然后在执行查询操作。
+`BatchExecutor`同样继承了`BaseExecutor`抽象类，实现了批处理多条 SQL 语句的功能。因为JDBC不支持select类型的SQL语句，只支持insert、update、delete类型的SQL语句，所以在`BatchExecutor`类中，批处理主要针对的是`update()`方法。`BatchExecutor`类实现的整体逻辑：其中的`doUpdate()`方法，主要是把需要批处理的SQL语句通过 `statement.addBatch()`方法添加到批处理的`Statement`或`PrepareStatement`对象中，然后通过`doFlushStatements()`方法执行`Statement`的`executeBatch()`方法执行批处理，在`doQueryCursor()`方法和`doQuery()`方法中，首先会执行`flushStatements()`方法，`flushStatements()`方法底层其实就是`doFlushStatements()`方法，所以相当于先把已经添加到`Statement`或`PrepareStatement`对象中的批处理语句执行，然后在执行查询操作。
 
 ### doUpdate()方法
 
-该方法主要是把需要批处理的SQL语句通过 statement.addBatch()方法添加到批处理的Statement或PrepareStatement对象中,等待执行批处理。其中主要根据判断当前执行的 SQL 模式与上次执行的SQL模式是否相同且对应的 MappedStatement 对象相同来确定使用已经存在的Statement对象，还是创建新的Statement对象来执行addBatch()操作。
+该方法主要是把需要批处理的SQL语句通过 `statement.addBatch()`方法添加到批处理的`Statement`或`PrepareStatement`对象中,等待执行批处理。其中主要根据判断当前执行的 SQL 模式与上次执行的SQL模式是否相同且对应的 `MappedStatement` 对象相同来确定使用已经存在的`Statement`对象，还是创建新的`Statement`对象来执行`addBatch()`操作。
 
 ```java
 @Override
@@ -173,7 +175,7 @@ BatchExecutor同样继承了BaseExecutor抽象类，实现了批处理多条 SQL
 ```
 
 **这里我发现了一个特别的情况**
-**这里执行了批量更新，按道理会复用同一个statement，但是由于参数为空**
+**这里执行了批量更新，按道理会复用同一个`statement`，但是由于参数为空**
 
 ```java
 userService.updateBatchById(Arrays.asList(u, u1, u2, u3));
@@ -198,7 +200,7 @@ userService.updateBatchById(Arrays.asList(u, u1, u2, u3));
 
 ### doFlushStatements()方法
 
-在doFlushStatements()方法中，底层执行了Statement的executeBatch()方法进行批处理操作的提交。其中BatchResult对象保持了一个Statement.executeBatch()方法的执行结果。和JDBC批处理相比，这里相当于封装了多个executeBatch()方法。
+在`doFlushStatements()`方法中，底层执行了`Statement`的`executeBatch()`方法进行批处理操作的提交。其中`BatchResult`对象保持了一个`Statement.executeBatch()`方法的执行结果。和JDBC批处理相比，这里相当于封装了多个`executeBatch()`方法。
 
 ```java
 @Override
@@ -264,11 +266,11 @@ userService.updateBatchById(Arrays.asList(u, u1, u2, u3));
   }
 ```
 
-关键方法是stmt.executeBatch()，可以批量执行当前statement下的所有sql。
+关键方法是`stmt.executeBatch()`，可以批量执行当前`statement`下的所有sql。
 
 ### doQuery()方法、doQueryCursor()方法
 
-在doQuery()、doQueryCursor()方法中，和SimpleExecutro类中的类似，唯一区别在于：首先执行了flushStatements()方法，其中flushStatements()方法底层其实就是doFlushStatements()方法，所以相当于先把已经添加到Statement或PrepareStatement对象中的批处理语句执行，然后在执行查询操作
+在`doQuery()`、`doQueryCursor()`方法中，和`SimpleExecutro`类中的类似，唯一区别在于：首先执行了`flushStatements()`方法，其中`flushStatements()`方法底层其实就是`doFlushStatements()`方法，所以相当于先把已经添加到`Statement`或`PrepareStatement`对象中的批处理语句执行，然后在执行查询操作
 
 ```java
  @Override
@@ -302,7 +304,3 @@ userService.updateBatchById(Arrays.asList(u, u1, u2, u3));
 
 在doFlushStatements()方法中，底层执行了Statement的executeBatch()方法进行批处理操作的提交。其中BatchResult对象保持了一个Statement.executeBatch()方法的执行结果。和JDBC批处理相比，这里相当于封装了多个executeBatch()方法。
 
-@Override
-————————————————
-版权声明：本文为CSDN博主「氵奄不死的鱼」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：
