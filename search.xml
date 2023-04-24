@@ -23,6 +23,25 @@
     
     
     <entry>
+      <title>秒杀</title>
+      <link href="/2023/02/21/%E7%A7%92%E6%9D%80/"/>
+      <url>/2023/02/21/%E7%A7%92%E6%9D%80/</url>
+      
+        <content type="html"><![CDATA[<h2 id="秒杀场景分析"><a href="#秒杀场景分析" class="headerlink" title="秒杀场景分析"></a>秒杀场景分析</h2><p>秒杀的主要场景有两种：</p><p>一种是抢红包类型的，抢到多少就是多少，不会有多余的逻辑需要考虑，重心在于如何实现限流，以及如何防止超卖，少买现象。</p><p>第二种是需要涉及到付款的，这个时候就需要考虑库存回收了，超过多久没有付款，就需要讲库存进行回收，用于他人继续进行秒杀。</p><h2 id="抢红包类型"><a href="#抢红包类型" class="headerlink" title="抢红包类型"></a>抢红包类型</h2><p>抢红包类型的话，比较简单，问题主要是两个，解决超卖少卖，解决大流量问题</p><h3 id="超卖问题"><a href="#超卖问题" class="headerlink" title="超卖问题"></a>超卖问题</h3><p>如果不加任何控制，大量请求进来，无法做到立马更新数据库对库存进行扣减并实时通知其他线程，，就得导致只卖100个，但是同时1000人进行抢购，同时对数据库进行操作，一下子卖出去1000份。就会造成超卖。</p><p>对应抢红包类型，不会出现少卖的问题，因为一旦抢到了，就没有后续操作。</p><h4 id="1-加锁"><a href="#1-加锁" class="headerlink" title="1.加锁"></a>1.加锁</h4><p>要解决超卖问题最好的就是加锁，对数据库加锁，每次去数据库查询库存，和减少库存的时候，都需要先获取锁，获取到了锁就进行操作，没有获取到就进行等待，这样就可以避免同时多个线程操作数据库导致的超卖问题了。</p><h5 id="1-1悲观锁"><a href="#1-1悲观锁" class="headerlink" title="1.1悲观锁"></a>1.1悲观锁</h5><p>查询的时候就加锁，select …..  for update，拿到读锁的同时，提前获取写锁</p><p>同时锁分为表锁和行锁，行锁可能出现死锁，而表锁的效率慢</p><h5 id="1-2乐观锁"><a href="#1-2乐观锁" class="headerlink" title="1.2乐观锁"></a>1.2乐观锁</h5><p>乐观锁并不是真实存在的锁，而是在更新的时候判断此时的库存是否是之前查询出的库存，如果相同，表示没人修改，可以更新库存，否则表示别人抢过资源，不再执行库存更新。类似如下操作：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> tb_sku <span class="keyword">set</span> stock<span class="operator">=</span><span class="number">2</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">and</span> stock<span class="operator">=</span><span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">SKU.objects.filter(id<span class="operator">=</span><span class="number">1</span>, stock<span class="operator">=</span><span class="number">7</span>).<span class="keyword">update</span>(stock<span class="operator">=</span><span class="number">2</span>)</span><br></pre></td></tr></table></figure><h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>对于两种锁，都能都实现防止超卖的功能，但是加锁的话，要注意的是数据库的隔离级别，不同的隔离级别会造成不同的影响，并发事务在不同的隔离级别下会出现不同的问题。这个需要深入研究。</p><h4 id="2-分阶段排队下单方案"><a href="#2-分阶段排队下单方案" class="headerlink" title="2. 分阶段排队下单方案"></a>2. 分阶段排队下单方案</h4><p>将提交操作变成两段式：</p><ul><li>第一阶段申请，申请预减减库，申请成功之后，进入消息队列；</li><li>第二阶段确认，从消息队列消费申请令牌，然后完成下单操作。 查库存 -&gt; 创建订单 -&gt; 扣减库存。通过分布式锁保障解决多个provider实例并发下单产生的超卖问题。</li></ul><p><strong>申请阶段：</strong></p><ul><li>将存库从MySQL前移到Redis中，所有的预减库存的操作放到内存中，由于Redis中不存在锁故不会出现互相等待，并且由于Redis的写性能和读性能都远高于MySQL，这就解决了高并发下的性能问题。</li></ul><p><strong>确认阶段：</strong></p><p>通过队列等异步手段，将变化的数据异步写入到DB中。</p><p>引入队列，然后数据通过队列排序，按照次序更新到DB中，完全串行处理。当达到库存阀值的时候就不在消费队列，并关闭购买功能。这就解决了超卖问题。<br><img src="https://img-blog.csdnimg.cn/20210603091538546.png"></p><p>这种方案还可以提升，因为在最终的落库阶段，还是需要在数据库进行，还是需要进行加锁，释放锁的过程，也就是说最终落库的时候花费的时间大大超过预减库存阶段的时间。</p><p>为了提升性能，可以对分布式锁进行优化，也就是分段进行加锁，将数据库的库存进行分段存储，比如我要卖1000件，分成10段，每一段100件，这样就可以支持每一次都没有同时有10个数据库请求进操作。</p><p>当然这样会有一点的缺点：</p><ul><li>首先，你得对一个数据分段存储，一个库存字段本来好好的，现在要分为20个分段库存字段；</li><li>其次，你在每次处理库存的时候，还得自己写随机算法，随机挑选一个分段来处理；</li><li>最后，如果某个分段中的数据不足了，你还得自动切换到下一个分段数据去处理。</li></ul><p>所以其实这种方案还是有一定的优化空间。</p><h3 id="抢购类型"><a href="#抢购类型" class="headerlink" title="抢购类型"></a>抢购类型</h3><p>这个类型其实和抢红包相比会多一个下单付款的过程。其实分析起来是一样的，但是会有一个少买问题</p><p>如果用户抢到了下单资格，但是没有付款，这个时候其实库存已经预减了，这种后续用户来抢购，就会少一个库存，这就造成了少卖问题。</p><p>这个少卖在分阶段下单方案非常明显，因为是先预减库存，再同步数据库，这中间其实有一定的时间差，会导致redis中的数据和数据库的数据不一样。</p><h2 id="PS"><a href="#PS" class="headerlink" title="PS"></a>PS</h2><p>本篇文章是学习阶段做的笔记，并没有实践完成，所以很多地方并没有考虑到或者解释的不对，后续会进行更新</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/crazymakercircle/article/details/120521674">https://blog.csdn.net/crazymakercircle/article/details/120521674</a></p><p><a href="https://blog.csdn.net/belongtocode/article/details/103395802">https://blog.csdn.net/belongtocode/article/details/103395802</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> JAVA 秒杀 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SpringSecurity</title>
       <link href="/2022/11/23/SpringSecurity/"/>
       <url>/2022/11/23/SpringSecurity/</url>
