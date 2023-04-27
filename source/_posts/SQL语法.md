@@ -542,13 +542,11 @@ end
 
 > 正常插入
 >
-> ![image-20220423100325837](https://cdn.jsdelivr.net/gh/liushuhuang/PicGo@main/img/202209171041291.png)
+> ![202209171041291](https://s2.loli.net/2023/04/27/admtAxiNzfscL2g.png)
 >
-> 
-> 
 > 超过17
 > 
-> ![image-20220423100400815](https://cdn.jsdelivr.net/gh/liushuhuang/PicGo@main/img/202209171042622.png)
+> ![202209171042622](https://s2.loli.net/2023/04/27/21KTu4Aj5yDOvwR.png)
 
 > **写法2**
 

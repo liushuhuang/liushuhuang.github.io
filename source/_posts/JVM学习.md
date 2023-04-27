@@ -11,15 +11,15 @@ cover:
 
 ## JVM基础知识
 
-![image-20221117140556010](https://cdn.staticaly.com/gh/liushuhuang/PicGo@main/img/image-20221117140556010.png)
+![image-20221117140556010](https://s2.loli.net/2023/04/27/x1mh2PCgZK7M6e9.png)
 
-![image-20221117140633662](D:\blog\liushuhuang.github.io\source\_posts\image-20221117140633662.png)
+![image-20221117140633662](https://s2.loli.net/2023/04/27/cx8AL9rM71oYvpg.png)
 
 ## GC
 
-![image-20221117140902775](https://cdn.jsdelivr.net/gh/liushuhuang/PicGo@main/img/image-20221117140902775.png)
+![image-20221117140902775](https://s2.loli.net/2023/04/27/qdy3AzHhiWOZpg1.png)
 
-![image-20221117141604984](https://cdn.staticaly.com/gh/liushuhuang/PicGo/img/image-20221117141604984.png)
+![image-20221117141604984](https://s2.loli.net/2023/04/27/bDtalV8jhTikLur.png)
 
 避免full GC
 
@@ -27,7 +27,7 @@ cover:
 
 
 
-![image-20221117141643124](D:\blog\liushuhuang.github.io\source\_posts\image-20221117141643124.png)
+![image-20221117141643124](https://s2.loli.net/2023/04/27/x5VTljHLCafRh4I.png)
 
 为什么要有个S区？
 
@@ -37,11 +37,11 @@ cover:
 
 
 
-![image-20221117142129987](https://cdn.staticaly.com/gh/liushuhuang/PicGo/img/image-20221117142129987.png)
+![image-20221117142129987](https://s2.loli.net/2023/04/27/8JpBi5h6VmeQDjR.png)
 
 
 
-![image-20221117142824087](https://cdn.staticaly.com/gh/liushuhuang/PicGo/img/image-20221117142824087.png)
+![image-20221117142824087](https://s2.loli.net/2023/04/27/cpV82qvsizk76RG.png)
 
 
 
@@ -59,7 +59,7 @@ jstat -gcutil   进程Id  GC信息显示时间间隔   查看进程GC信息
 
 GC信息各字段解释：
 
-![image-20221117144550372](D:\blog\liushuhuang.github.io\source\_posts\image-20221117144550372.png)
+![image-20221117144550372](https://s2.loli.net/2023/04/27/oF3fyzQrUPMAH4k.png)
 
 
 
@@ -75,13 +75,13 @@ FGCT：FullGC占用时间
 
 
 
-![image-20221117144026347](D:\blog\liushuhuang.github.io\source\_posts\image-20221117144026347.png)
+![image-20221117144026347](https://s2.loli.net/2023/04/27/Xz2CAVE1PMTItbw.png)
 
 
 
 
 
-![image-20221117144318498](D:\blog\liushuhuang.github.io\source\_posts\image-20221117144318498.png)
+![image-20221117144318498](https://s2.loli.net/2023/04/27/sMdXIzc8Guwvi6p.png)
 
 
 
@@ -89,7 +89,7 @@ FGCT：FullGC占用时间
 
 
 
-![image-20221117144800517](D:\blog\liushuhuang.github.io\source\_posts\image-20221117144800517.png)
+![image-20221117144800517](https://s2.loli.net/2023/04/27/m1iNpwJlCfqQeGy.png)
 
 收集器也是面向"代"的
 
@@ -99,7 +99,7 @@ FGCT：FullGC占用时间
 
 
 
-![image-20221117145107289](D:\blog\liushuhuang.github.io\source\_posts\image-20221117145107289.png)
+![image-20221117145107289](https://s2.loli.net/2023/04/27/s4YoFRLqKbxAdwO.png)
 
 
 
@@ -107,15 +107,15 @@ FGCT：FullGC占用时间
 
 
 
-![image-20221117145407696](D:\blog\liushuhuang.github.io\source\_posts\image-20221117145407696.png)
+![image-20221117145407696](https://s2.loli.net/2023/04/27/qnoZFUSxtplRyGh.png)
 
-![image-20221117145650974](D:\blog\liushuhuang.github.io\source\_posts\image-20221117145650974.png)
+![image-20221117145650974](https://s2.loli.net/2023/04/27/gO3AtENycKDIVYd.png)
 
-![image-20221117150932698](D:\blog\liushuhuang.github.io\source\_posts\image-20221117150932698.png)
+![image-20221117150932698](https://s2.loli.net/2023/04/27/c8HGVxY9IAbTBuE.png)
 
-![image-20221117151232037](D:\blog\liushuhuang.github.io\source\_posts\image-20221117151232037.png)
+![image-20221117151232037](https://s2.loli.net/2023/04/27/xJP3BR2a7S6cjLA.png)
 
-![image-20221117151937066](D:\blog\liushuhuang.github.io\source\_posts\image-20221117151937066.png)
+![image-20221117151937066](https://s2.loli.net/2023/04/27/ZnzvKYUTcNdpPmq.png)
 
 年轻代显示总共只有9M，是因为有1M的S区是不会使用的
 
@@ -123,15 +123,15 @@ FGCT：FullGC占用时间
 
 
 
-![image-20221117154425746](D:\blog\liushuhuang.github.io\source\_posts\image-20221117154425746.png)
+![image-20221117154425746](https://s2.loli.net/2023/04/27/73EpVJ8roRkNCg1.png)
 
-![image-20221117154452616](D:\blog\liushuhuang.github.io\source\_posts\image-20221117154452616.png)
+![image-20221117154452616](https://s2.loli.net/2023/04/27/LXTVdlNPnFJujr5.png)
 
-![image-20221117154637094](D:\blog\liushuhuang.github.io\source\_posts\image-20221117154637094.png)
+![image-20221117154637094](https://s2.loli.net/2023/04/27/XK7PZMGHnlzo5sQ.png)
 
-![image-20221117154744143](D:\blog\liushuhuang.github.io\source\_posts\image-20221117154744143.png)
+![image-20221117154744143](https://s2.loli.net/2023/04/27/pGai8Z64QvLP7hy.png)
 
-![image-20221117155319163](D:\blog\liushuhuang.github.io\source\_posts\image-20221117155319163.png)
+![image-20221117155319163](https://s2.loli.net/2023/04/27/xP5rXaqni1SzC8R.png)
 
 
 
